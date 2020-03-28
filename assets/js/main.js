@@ -1,2 +1,2 @@
-console.log("Hey Guy");
-const a = document.getElementById("as");
+import "./searchBar";
+import "./polyfill.min.js";
