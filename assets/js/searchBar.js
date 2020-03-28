@@ -18,7 +18,7 @@ function addTickerDropList(companyArray) {
       li.className = "search__company__item";
 
       const anchor = document.createElement("a");
-      anchor.href = `/stocks/${company["name"]}`;
+      anchor.href = `/stocks/${company["ticker"]}`;
       anchor.textContent = company[prop];
       li.appendChild(anchor);
 
