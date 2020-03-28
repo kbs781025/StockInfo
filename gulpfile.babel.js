@@ -10,12 +10,12 @@ const paths = {
   styles: {
     src: "./assets/scss/*.scss",
     dest: "./src/statics/styles",
-    watch: "./assets/scss/**/*.scss"
+    watch: "./assets/scss/*.scss"
   },
   js: {
     src: "./assets/js/main.js",
     dest: "./src/statics/js",
-    watch: "./assets/js/**/*.js"
+    watch: "./assets/js/*.js"
   }
 };
 
