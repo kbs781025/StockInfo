@@ -2,4 +2,5 @@ extends layouts/layout
 include mixins/stockDetail
 
 block content
-    +stockDetail(stocks)
+    each stock in stocks
+        +stockDetail(stock)
