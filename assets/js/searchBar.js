@@ -13,16 +13,12 @@ function addTickerDropList(companyArray) {
   const ui = document.createElement("ui");
   ui.className = "search__company__list";
   for (const company of companyArray) {
-    const liTicker = document.createElement("li");
-    liTicker.className = "search__company__item";
-    liTicker.innerHTML = company.ticker;
-
-    const liName = document.createElement("li");
-    liName.className = "search__company__item";
-    liName.innerHTML = company.name;
-
-    ui.appendChild(liTicker);
-    ui.appendChild(liName);
+    for (const prop of Object.keys(company)) {
+      const li = document.createElement("li");
+      li.className = "search__company__item";
+      li.innerHTML = company[prop];
+      ui.appendChild(li);
+    }
   }
 
   searchContainer.appendChild(ui);
