@@ -28,3 +28,10 @@ export const getSearch = async (req, res) => {
     res.render("search");
   }
 };
+
+export const getStockDetail = (req, res) => {
+  const {
+    params: { ticker }
+  } = req;
+  console.log(req.params);
+};
