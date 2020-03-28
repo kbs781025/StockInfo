@@ -1,7 +1,7 @@
 export const stocks = [
-  { symbol: "AAPL", lastSalePrice: 247.44 },
+  { symbol: "AAPL", price: 247.44 },
   {
     symbol: "BA",
-    lastSalePrice: 162.0
+    price: 162.0
   }
 ];
