@@ -1,0 +1,5 @@
+mixin stockDetail(stocks = {})
+    each stock in stocks
+        h4=stock.symbol
+        ul
+            li Price: #{stock.price}
