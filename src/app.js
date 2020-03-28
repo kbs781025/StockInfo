@@ -3,6 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import { routes } from "./routes";
 import globalRouter from "./routers/globalRouter";
+import stockRouter from "./routers/stockRouter";
 import { localMiddleWare } from "./middleWares";
 import path from "path";
 
@@ -19,4 +20,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(localMiddleWare);
 
 app.use(routes.home, globalRouter);
+app.use(routes.stocks, stockRouter);
+
 app.listen(port, () => console.log(`Listening on ${port}`));
