@@ -1,11 +1,18 @@
 import Chart from "chart.js";
 
-export function drawChart(dailyData) {
-  const chartCanvas = document.getElementById("jsPriceChart");
+const chartCanvas = document.getElementById("jsPriceChart");
 
+async function fetchStockData() {
+  const symbol = window.location.href.split("stocks")[1];
+  const response = await fetch(`/api/getDaily${symbol}`);
+  return await response.json();
+}
+
+async function drawChart() {
   let labels = [],
     data = [];
 
+  const dailyData = await fetchStockData();
   for (const element of dailyData.datePriceArray) {
     labels.push(element.date);
     data.push(element.price);
@@ -26,4 +33,8 @@ export function drawChart(dailyData) {
       ]
     }
   });
+}
+
+if (chartCanvas) {
+  drawChart();
 }
