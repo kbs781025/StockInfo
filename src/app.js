@@ -6,9 +6,12 @@ import globalRouter from "./routers/globalRouter";
 import stockRouter from "./routers/stockRouter";
 import { localMiddleWare } from "./middleWares";
 import path from "path";
+import http from "http";
+import { initSocketIO } from "./sockets";
 
 dotenv.config();
 const app = express();
+const server = http.createServer(app);
 const port = process.env.PORT;
 app.use(morgan("dev"));
 app.set("view engine", "pug");
@@ -22,4 +25,6 @@ app.use(localMiddleWare);
 app.use(routes.home, globalRouter);
 app.use(routes.stocks, stockRouter);
 
-app.listen(port, () => console.log(`Listening on ${port}`));
+initSocketIO(server);
+
+server.listen(port, () => console.log(`Listening on ${port}`));

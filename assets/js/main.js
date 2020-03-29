@@ -1,2 +1,3 @@
 import "./searchBar";
-import "./polyfill.min.js";
+import "./polyfill.min";
+import "./stockChart";
