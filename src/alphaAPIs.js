@@ -1,10 +1,32 @@
 import axios from "axios";
 import { routes } from "./routes";
 
-export const INTRADAY = "TIME_SERIES_INTRADAY";
-export const DAILY = "TIME_SERIES_DAILY";
-export const QUOTE = "GLOBAL_QUOTE";
-export const SEARCH = "SYMBOL_SEARCH";
+const INTRADAY = "TIME_SERIES_INTRADAY";
+const DAILY = "TIME_SERIES_DAILY";
+const QUOTE = "GLOBAL_QUOTE";
+const SEARCH = "SYMBOL_SEARCH";
+const APICALL_LIMIT = 5; // per minute
+let currentAPICalls = 0;
+let previousMinute = 0;
+
+function consumedAllAPI(data) {
+  const minute = new Date().getMinutes();
+
+  if (minute !== previousMinute) {
+    currentAPICalls = 0;
+    return false;
+  }
+
+  ++currentAPICalls;
+  console.log("Current Call " + currentAPICalls);
+  previousMinute = minute;
+
+  if (currentAPICalls > 5) {
+    return true;
+  }
+
+  return false;
+}
 
 export const getQuote = async symbol => {
   const response = await axios.get(routes.alphaStocQueryUrl, {
@@ -16,6 +38,10 @@ export const getQuote = async symbol => {
   });
 
   const data = response.data["Global Quote"];
+  if (consumedAllAPI()) {
+    throw new Error("Consumed All API Calls");
+  }
+
   if (data) {
     return { symbol, price: data["05. price"] };
   }
@@ -33,6 +59,10 @@ export const getDaily = async symbol => {
   });
 
   const data = response.data["Time Series (Daily)"];
+  if (consumedAllAPI()) {
+    throw new Error("Consumed All API Calls");
+  }
+
   if (data) {
     let datePriceArray = [];
 

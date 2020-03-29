@@ -12,12 +12,17 @@ export const getSearch = async (req, res) => {
     query: { ticker: symbol }
   } = req;
 
-  const stock = await getQuote(symbol);
+  try {
+    const stock = await getQuote(symbol);
 
-  if (stock) {
-    res.render("stockDetail", { stock });
-  } else {
-    res.render("home");
+    if (stock) {
+      res.render("stockDetail", { stock });
+    } else {
+      res.render("home");
+    }
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
   }
 };
 
@@ -28,11 +33,16 @@ export const getStockDetail = async (req, res) => {
 
   console.log(req.params);
 
-  const stock = await getQuote(symbol);
+  try {
+    const stock = await getQuote(symbol);
 
-  if (stock) {
-    res.render("stockDetail", { stock });
-  } else {
+    if (stock) {
+      res.render("stockDetail", { stock });
+    } else {
+      res.redirect(routes.home);
+    }
+  } catch (error) {
+    console.log(error);
     res.redirect(routes.home);
   }
 };

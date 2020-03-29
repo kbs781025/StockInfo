@@ -7,9 +7,12 @@ export const initSocketIO = server => {
   io = socketio.listen(server);
   io.on("connection", socket => {
     socket.on("dailyrequest", async function(symbol) {
-      const dailyData = await getDaily(symbol);
-      console.log(dailyData);
-      socket.emit("dailyReply", { dailyData });
+      try {
+        const dailyData = await getDaily(symbol);
+        socket.emit("dailyReply", { dailyData });
+      } catch (error) {
+        console.log(error);
+      }
     });
   });
 };
