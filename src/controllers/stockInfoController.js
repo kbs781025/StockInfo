@@ -1,7 +1,6 @@
 import { stocks } from "../stocksDB";
 import { routes } from "../routes";
-import { QUOTE, DAILY, getQuote, getDaily } from "../alphaAPIs";
-import axios from "axios";
+import { getQuote, getDaily } from "./alphaAPIsController";
 
 export const getHome = (req, res) => {
   res.render("home", { stocks });
