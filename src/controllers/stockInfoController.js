@@ -1,6 +1,6 @@
 import { stocks } from "../stocksDB";
 import { routes } from "../routes";
-import { QUOTE } from "../alphaFunctions";
+import { QUOTE, DAILY } from "../alphaFunctions";
 import axios from "axios";
 
 export const getHome = (req, res) => {
@@ -29,9 +29,24 @@ export const getSearch = async (req, res) => {
   }
 };
 
-export const getStockDetail = (req, res) => {
+export const getStockDetail = async (req, res) => {
   const {
-    params: { ticker }
+    params: { ticker: symbol }
   } = req;
-  console.log(req.params);
+
+  const response = await axios.get(routes.alphaStocQueryUrl, {
+    params: {
+      function: DAILY,
+      symbol,
+      apikey: process.env.ALPHA_VANTAGE_SECRET
+    }
+  });
+
+  if (response.data["Time Series (Daily)"]) {
+    const data = response.data["Time Series (Daily)"];
+    console.log(data);
+    res.render("stockDetail", stock);
+  } else {
+    res.redirect(routes.home);
+  }
 };
