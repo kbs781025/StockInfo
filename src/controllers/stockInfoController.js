@@ -31,8 +31,6 @@ export const getStockDetail = async (req, res) => {
     params: { ticker: symbol }
   } = req;
 
-  console.log(req.params);
-
   try {
     const stock = await getQuote(symbol);
 

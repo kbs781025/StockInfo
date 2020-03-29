@@ -9,7 +9,7 @@ export const initSocketIO = server => {
     socket.on("dailyrequest", async function(symbol) {
       try {
         const dailyData = await getDaily(symbol);
-        socket.emit("dailyReply", { dailyData });
+        socket.emit("dailyReply", dailyData);
       } catch (error) {
         console.log(error);
       }

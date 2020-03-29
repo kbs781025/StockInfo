@@ -64,7 +64,6 @@ async function findTickers(event) {
 }
 
 function handleSubmit(event) {
-  event.preventDefault();
   const symbol = event.target.ticker.value;
   socket.emit("dailyrequest", symbol);
 }
