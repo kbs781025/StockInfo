@@ -1,6 +1,6 @@
 import { stocks } from "../stocksDB";
 import { routes } from "../routes";
-import { QUOTE, DAILY } from "../alphaFunctions";
+import { QUOTE, DAILY, getQuote, getDaily } from "../alphaAPIs";
 import axios from "axios";
 
 export const getHome = (req, res) => {
@@ -12,20 +12,12 @@ export const getSearch = async (req, res) => {
     query: { ticker: symbol }
   } = req;
 
-  const response = await axios.get(routes.alphaStocQueryUrl, {
-    params: {
-      function: QUOTE,
-      symbol,
-      apikey: process.env.ALPHA_VANTAGE_SECRET
-    }
-  });
+  const stock = await getQuote(symbol);
 
-  if (response.data["Global Quote"]) {
-    const data = response.data["Global Quote"];
-    const stock = { symbol, price: data["05. price"] };
-    res.render("search", { stocks: [stock] });
+  if (stock) {
+    res.render("stockDetail", { stock });
   } else {
-    res.render("search");
+    res.render("home");
   }
 };
 
@@ -34,18 +26,12 @@ export const getStockDetail = async (req, res) => {
     params: { ticker: symbol }
   } = req;
 
-  const response = await axios.get(routes.alphaStocQueryUrl, {
-    params: {
-      function: DAILY,
-      symbol,
-      apikey: process.env.ALPHA_VANTAGE_SECRET
-    }
-  });
+  console.log(req.params);
 
-  if (response.data["Time Series (Daily)"]) {
-    const data = response.data["Time Series (Daily)"];
-    console.log(data);
-    res.render("stockDetail", stock);
+  const stock = await getQuote(symbol);
+
+  if (stock) {
+    res.render("stockDetail", { stock });
   } else {
     res.redirect(routes.home);
   }
