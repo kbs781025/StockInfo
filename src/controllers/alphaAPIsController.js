@@ -48,7 +48,7 @@ export const callQuoteAPI = async symbol => {
     return { symbol, price: data["05. price"] };
   }
 
-  return {};
+  return null;
 };
 
 export const callDailyAPI = async symbol => {
@@ -79,7 +79,7 @@ export const callDailyAPI = async symbol => {
     return { symbol, datePriceArray };
   }
 
-  return {};
+  return null;
 };
 
 export const getDaily = async (req, res) => {
