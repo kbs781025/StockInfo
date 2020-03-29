@@ -15,7 +15,7 @@ export const getSearch = async (req, res) => {
     const stock = await getQuote(symbol);
 
     if (stock) {
-      res.render("stockDetail", { stock });
+      res.redirect(routes.stockDetail(symbol));
     } else {
       res.render("home");
     }
