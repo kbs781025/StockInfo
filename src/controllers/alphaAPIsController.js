@@ -36,6 +36,9 @@ export const callQuoteAPI = async symbol => {
       apikey: process.env.ALPHA_VANTAGE_SECRET
     }
   });
+
+  console.log(response);
+
   const data = response.data["Global Quote"];
   if (consumedAllAPI()) {
     throw new Error("Consumed All API Calls");
@@ -57,6 +60,8 @@ export const callDailyAPI = async symbol => {
     }
   });
 
+  console.log(response);
+
   const data = response.data["Time Series (Daily)"];
   if (consumedAllAPI()) {
     throw new Error("Consumed All API Calls");
@@ -70,6 +75,7 @@ export const callDailyAPI = async symbol => {
       const key = priceKeys[keyIndex];
       datePriceArray.push({ date: key, price: data[key]["4. close"] });
     }
+
     return { symbol, datePriceArray };
   }
 

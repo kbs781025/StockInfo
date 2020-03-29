@@ -1,6 +1,6 @@
 import { stocks } from "../stocksDB";
 import { routes } from "../routes";
-import { getQuote, getDaily } from "./alphaAPIsController";
+import { callQuoteAPI, getDaily } from "./alphaAPIsController";
 
 export const getHome = (req, res) => {
   res.render("home", { stocks });
@@ -8,12 +8,11 @@ export const getHome = (req, res) => {
 
 export const getSearch = async (req, res) => {
   const {
-    query: { ticker: symbol }
+    query: { symbol }
   } = req;
-
   try {
-    const stock = await getQuote(symbol);
-
+    const stock = await callQuoteAPI(symbol);
+    console.log(stock);
     if (stock) {
       res.redirect(routes.stockDetail(symbol));
     } else {
@@ -27,12 +26,11 @@ export const getSearch = async (req, res) => {
 
 export const getStockDetail = async (req, res) => {
   const {
-    params: { ticker: symbol }
+    params: { symbol }
   } = req;
 
   try {
-    const stock = await getQuote(symbol);
-
+    const stock = await callQuoteAPI(symbol);
     if (stock) {
       res.render("stockDetail", { stock });
     } else {
