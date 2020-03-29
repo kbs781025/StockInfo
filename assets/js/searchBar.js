@@ -1,8 +1,11 @@
+import { drawChart } from "./stockChart";
+
 const searchContainer = document.getElementsByClassName("search__container")[0];
 const search = document.getElementById("jsSearchForm");
 const ALPHA_VANTAGE_QUERY_URL = "https://www.alphavantage.co/query";
 const QUOTE = "SYMBOL_SEARCH";
 const ALPHA_VANTAGE_SECRET = "IX8DO332KWLB37AN";
+const socket = io();
 
 function addTickerDropList(companyArray) {
   const existingList = searchContainer.querySelector("ui");
@@ -60,8 +63,18 @@ async function findTickers(event) {
   }
 }
 
+function handleSubmit(event) {
+  event.preventDefault();
+  const symbol = event.target.ticker.value;
+  socket.emit("dailyrequest", symbol);
+}
+
 function init() {
   search.addEventListener("input", findTickers);
+  search.addEventListener("submit", handleSubmit);
+  socket.on("dailyReply", function(dailyData) {
+    drawChart(dailyData);
+  });
 }
 
 if (search) {
