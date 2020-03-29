@@ -60,13 +60,8 @@ async function findTickers(event) {
   }
 }
 
-function handleSubmit(event) {
-  const symbol = event.target.ticker.value;
-}
-
 function init() {
   search.addEventListener("input", findTickers);
-  search.addEventListener("submit", handleSubmit);
 }
 
 if (search) {
