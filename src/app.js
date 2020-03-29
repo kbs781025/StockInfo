@@ -4,6 +4,7 @@ import morgan from "morgan";
 import { routes } from "./routes";
 import globalRouter from "./routers/globalRouter";
 import stockRouter from "./routers/stockRouter";
+import apiRouter from "./routers/apiRouter";
 import { localMiddleWare } from "./middleWares";
 import path from "path";
 import http from "http";
@@ -24,6 +25,7 @@ app.use(localMiddleWare);
 
 app.use(routes.home, globalRouter);
 app.use(routes.stocks, stockRouter);
+app.use(routes.api, apiRouter);
 
 initSocketIO(server);
 
