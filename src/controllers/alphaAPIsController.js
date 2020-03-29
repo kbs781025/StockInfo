@@ -28,7 +28,7 @@ function consumedAllAPI(data) {
   return false;
 }
 
-export const getQuote = async symbol => {
+export const callQuoteAPI = async symbol => {
   const response = await axios.get(routes.alphaStocQueryUrl, {
     params: {
       function: QUOTE,
@@ -36,7 +36,6 @@ export const getQuote = async symbol => {
       apikey: process.env.ALPHA_VANTAGE_SECRET
     }
   });
-
   const data = response.data["Global Quote"];
   if (consumedAllAPI()) {
     throw new Error("Consumed All API Calls");
