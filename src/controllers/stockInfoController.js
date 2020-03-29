@@ -16,7 +16,7 @@ export const getSearch = async (req, res) => {
     if (stock) {
       res.redirect(routes.stockDetail(symbol));
     } else {
-      res.render("home");
+      res.redirect(routes.home);
     }
   } catch (error) {
     console.log(error);
