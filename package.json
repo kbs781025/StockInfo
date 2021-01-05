@@ -6,7 +6,7 @@
   "dependencies": {
     "@babel/core": "^7.9.0",
     "@babel/node": "^7.8.7",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chart.js": "^2.9.3",
     "del": "^5.1.0",
     "dotenv": "^8.2.0",
